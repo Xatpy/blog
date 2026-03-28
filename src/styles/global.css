@@ -6,26 +6,35 @@
 :root,
 html[data-theme="light"] {
   --background: #f7f5f2;
+  --surface: #fbfaf8;
   --foreground: #1f2933;
+  --secondary: #66727c;
   --accent: #5f7a73;
+  --accent-hover: #4f6862;
   --muted: #e7e2dc;
   --border: #d8d4ce;
 }
 
 html[data-theme="dark"] {
-  --background: #161c20;
-  --foreground: #e6ece8;
-  --accent: #9db8ae;
-  --muted: #263038;
-  --border: #334149;
+  --background: #0b0f10;
+  --surface: #111718;
+  --foreground: #d7e0db;
+  --secondary: #93a19b;
+  --accent: #7ee787;
+  --accent-hover: #9befa7;
+  --muted: #151d1a;
+  --border: #1d2823;
 }
 
 @theme inline {
   --font-app: var(--font-ibm-plex-sans);
   --font-prose: var(--font-newsreader);
   --color-background: var(--background);
+  --color-surface: var(--surface);
   --color-foreground: var(--foreground);
+  --color-secondary: var(--secondary);
   --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
   --color-muted: var(--muted);
   --color-border: var(--border);
 }

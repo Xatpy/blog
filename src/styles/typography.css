@@ -35,7 +35,7 @@
     }
 
     a {
-      @apply wrap-break-word text-foreground decoration-dashed underline-offset-4 hover:text-accent focus-visible:no-underline;
+      @apply wrap-break-word text-foreground decoration-dashed underline-offset-4 hover:text-[var(--accent-hover)] focus-visible:no-underline;
     }
 
     ul {
@@ -55,7 +55,7 @@
     }
 
     figcaption {
-      @apply opacity-75;
+      color: var(--secondary);
     }
 
     table {
@@ -83,7 +83,9 @@
     }
 
     blockquote {
-      @apply border-s-accent/80 wrap-break-word opacity-80;
+      @apply wrap-break-word;
+      border-inline-start-color: color-mix(in srgb, var(--accent) 72%, transparent);
+      color: var(--secondary);
     }
 
     details {
@@ -106,7 +108,10 @@
   }
 
   html[data-theme="dark"] .astro-code {
-    @apply bg-(--shiki-dark-bg) text-(--shiki-dark) [&_span]:text-(--shiki-dark);
+    @apply text-(--shiki-dark) [&_span]:text-(--shiki-dark);
+    background-color: var(--surface);
+    border-color: color-mix(in srgb, var(--accent) 18%, var(--border));
+    box-shadow: inset 0 1px 0 color-mix(in srgb, var(--accent) 10%, transparent);
   }
 
   /* Styles for Shiki transformers */
@@ -119,7 +124,8 @@
       @apply relative inline-block w-full bg-red-500/20 before:absolute before:-left-3 before:text-red-500 before:content-['-'];
     }
     .line.highlighted {
-      @apply inline-block w-full bg-slate-400/20;
+      @apply inline-block w-full;
+      background-color: color-mix(in srgb, var(--accent) 10%, transparent);
     }
     .highlighted-word {
       @apply rounded-sm border border-border px-0.5 py-px;
