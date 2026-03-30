@@ -7,6 +7,9 @@ tags: ['IA', 'desarrollo', 'workflow', 'indie']
 
 Siempre me ha gustado hacer apps y quería hablar un poco sobre mi experiencia construyendo estas últimas aplicaciones.
 
+
+
+
 Lo primero es que considero que, desde diciembre de 2025, mi estudio de software cambió completamente. Y creo que en general el rol de programador, si no está extinto como tal, sí que ha mutado por completo. En mi caso, yo me sigo considerando programador, pero creo que el trabajo ha cambiado muchísimo y que nos tenemos que reinventar. Para mí ha sido una revolución total.
 
 Yo, para no quedarme fuera, he intentado seguir un poco esa ola haciendo varios proyectillos en mi tiempo libre, sobre todo para usar la inteligencia artificial de verdad y ver hasta dónde se podía llegar con ella. El objetivo principal que me planteé era bastante claro: poder hacer aplicaciones sin tener que abrir el IDE para ponerme yo a tirar líneas de código una a una. No porque no sepa o no quiera programar, sino porque quería comprobar si de verdad había cambiado ya la forma de construir software.
