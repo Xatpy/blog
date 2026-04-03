@@ -1,12 +1,12 @@
 ---
 title: "Cómo desarollé la app 8SecondsHug mientras me fui a correr"
 description: "Esta es la historia de cómo desarrollé una app en un par de horas mientras me fui a correr."
-pubDatetime: 2026-04-03T16:30:00Z
+pubDatetime: 2026-04-03T16:00:00Z
 tags: ["writing", "notes"]
 draft: false
 ---
 
-Esta es la historia de cómo desarrollé una app en un par de horas mientras me fui a correr.
+Hoy he creado una app completa mientras salía a correr 40 minutos.
 
 
 ## La idea
@@ -14,6 +14,8 @@ Esta es la historia de cómo desarrollé una app en un par de horas mientras me 
 Tenía apuntada esta idea en el bloc de notas desde hace tiempo:
 
 > 8 seconds hug - La importancia de los abrazos, una app que lo recuerde
+
+Y justo anoche me salió un artículo por Twitter que decía que los abrazos _prolongados_ de pueden curar muchas situaciones. Y me recordó a la idea que tenía apuntada desde hacía tiempo con lo de los 8 segundos. Así que esta mañana me he puesto a ello mientras desayunaba.
 
 ## El prompt inicial
 
