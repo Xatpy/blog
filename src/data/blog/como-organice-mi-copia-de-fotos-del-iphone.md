@@ -1,7 +1,7 @@
 ---
 title: "Cómo organicé una copia enorme de fotos del iPhone por año y mes"
 description: "Un pequeño script para convertir un volcado caótico de Image Capture en un archivo cronológico, sin tocar los originales."
-pubDatetime: 2026-07-13T12:00:00Z
+pubDatetime: 2026-07-13T10:00:00Z
 tags: ["scripts", "photography", "backup"]
 draft: false
 ---
