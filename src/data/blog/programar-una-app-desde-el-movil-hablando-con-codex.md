@@ -1,7 +1,8 @@
 ---
-title: "Programar una app desde el móvil, hablando con Codex"
-description: "Un pequeño script para compilar, instalar y abrir una app iOS en mi iPhone sin tener que volver al ordenador."
+title: "He programado una app desde el coche, hablando con Codex"
+description: "Un vídeo de dos minutos para explicar una cosa que todavía me parece bastante absurda: dictar cambios para una app y probarlos directamente en CarPlay."
 pubDatetime: 2026-08-17T14:00:00Z
+modDatetime: 2026-08-17T14:00:00Z
 tags: ["ai", "scripts", "writing"]
 draft: false
 ogImage: "https://blog.jaimechapinal.com/images/programar-con-codex-por-voz.png"
@@ -9,36 +10,34 @@ ogImage: "https://blog.jaimechapinal.com/images/programar-con-codex-por-voz.png"
 
 ![Ilustración de una persona enviando una nota de voz a Codex desde el iPhone mientras el Mac trabaja al fondo.](/images/programar-con-codex-por-voz.png)
 
-Últimamente estoy desarrollando apps iOS de una forma que todavía me parece un poco mágica.
+He grabado un vídeo de dos minutos desde el coche que resume bastante bien cómo estoy programando algunas apps estos días.
 
-El ordenador puede estar en otra habitación, o yo puedo estar fuera de casa. Desde el móvil le mando una nota de voz a Codex:
+Con el coche parado, estoy conectado al Mac por Wi‑Fi. El ordenador está en la habitación de al lado. Hablo con Codex desde el móvil y le digo qué quiero cambiar en una app de CarPlay.
 
-> Haz este botón más grande, revisa que no rompa nada y vuelve a desplegar la app.
+Codex hace el cambio, compila la app, la instala y la abre de nuevo. Yo puedo probarla directamente en la pantalla del coche.
 
-Codex hace el cambio y, cuando termina, compila la aplicación, la instala en mi iPhone y la abre.
+La app es [Ireneo](https://apps.apple.com/us/app/ireneo/id6798789699), que ya está publicada. Sirve para capturar una idea hablada desde el iPhone o CarPlay, sin tener que ponerte a escribir ni sacar el móvil.
 
-No tengo que escribir el mensaje en el móvil. Tampoco tengo que volver al Mac, abrir Xcode, elegir el dispositivo y pulsar Run. Hablo, espero un poco y pruebo el resultado directamente en el teléfono.
+No estoy diciendo que ahora programe sin ordenador. El ordenador está trabajando de fondo y sigue siendo donde tiene sentido leer código, revisar algo complejo o diseñar una interfaz con calma. Pero no necesito estar delante de él para cada pequeña iteración.
 
-No es que haya sustituido programar en el ordenador por completo. Para leer código largo, revisar una interfaz con calma o hacer cambios complejos, el Mac sigue siendo mucho más cómodo. Pero para iterar sobre algo que ya tengo en marcha, poder dirigir el siguiente cambio con la voz es sorprendentemente útil.
+La parte que todavía me parece un poco absurda es esta:
 
-## El pequeño script que cierra el ciclo
-
-La última parte del flujo es este script de Bash. Lo tengo dentro de cada proyecto nativo que lo necesita:
-
-```sh
-./scripts/deploy-to-iphone.sh
+```text
+Lo digo en voz alta → Codex lo implementa → se despliega en el coche → lo pruebo
 ```
 
-Por debajo no hay demasiada magia. Hace cuatro cosas:
+Para una app normal de iPhone ya era cómodo. Para CarPlay es especialmente interesante, porque hay muchas cosas que solo entiendes bien en el coche y en la pantalla real: la jerarquía visual, el flujo de interacción, el contexto o si algo distrae más de la cuenta. El simulador ayuda, pero no te cuenta toda la historia.
 
-1. Busca un iPhone conectado y autorizado.
-2. Compila una build `Debug` para ese dispositivo.
-3. Instala la aplicación.
-4. Cierra la versión anterior y abre la nueva.
+## El script que lo hace posible
 
-Este es el script completo:
+El último tramo lo resuelve un pequeño script. Busca el iPhone conectado, compila una build de desarrollo, instala la app y la abre. En CarPlay, al volver a abrirse la app del iPhone, la nueva versión queda disponible también en la pantalla del coche.
 
-```bash
+No sustituye TestFlight ni la App Store, y tampoco permite desplegar en cualquier iPhone desde cualquier sitio. El Mac tiene que poder hablar con el teléfono, que debe estar autorizado y conectado por cable o por una conexión de desarrollo ya emparejada. Pero para iterar sobre una app propia, quita mucha fricción.
+
+<details>
+<summary>Ver el script completo</summary>
+
+```sh
 #!/bin/bash
 # Compila, instala y abre una app en un iPhone conectado.
 # Uso opcional: DEVICE_ID=<identificador> ./scripts/deploy-to-iphone.sh
@@ -98,26 +97,8 @@ xcrun devicectl device process launch \
 echo "Listo."
 ```
 
-Solo hay que cambiar tres valores al principio: el proyecto de Xcode, el esquema y el identificador de paquete. El script usa `xcodebuild` para compilar y `xcrun devicectl` para instalar y arrancar la aplicación. Son herramientas estándar de Apple; el script simplemente reúne los pasos que haría manualmente.
+</details>
 
-Si hay varios iPhone disponibles, no escoge uno al azar: muestra los identificadores y pide ejecutar, por ejemplo:
+Solo hay que adaptar el proyecto de Xcode, el esquema y el identificador de paquete. Por debajo usa `xcodebuild` y `xcrun devicectl`, herramientas estándar de Apple.
 
-```sh
-DEVICE_ID=00008120-0012345678901234 ./scripts/deploy-to-iphone.sh
-```
-
-## Por qué me resulta tan útil
-
-El simulador de iOS es muy bueno, pero hay cosas que necesitan un teléfono de verdad: cámara, micrófono, permisos, audio, rendimiento, almacenamiento local o CarPlay. En esos casos, el iPhone deja de ser solo el sitio donde se comprueba el resultado final. Pasa a ser parte del entorno de desarrollo.
-
-La parte interesante no es ahorrar unos clics. Es que el ciclo completo se hace muy corto:
-
-```text
-Lo digo en voz alta → Codex lo implementa → la app aparece en mi iPhone → lo pruebo
-```
-
-Esto requiere que el Mac donde trabaja Codex pueda acceder al iPhone, ya sea por cable o mediante una conexión de desarrollo ya emparejada. También necesita que el teléfono esté desbloqueado y autorizado. No funciona como una distribución remota de apps a cualquier dispositivo.
-
-Y tampoco sustituye TestFlight ni la App Store. Es una build de desarrollo instalada en mi propio iPhone. Para compartir una beta con otra persona o publicar una versión, sigue haciendo falta el proceso normal de distribución.
-
-Pero para el trabajo diario me está cambiando bastante la sensación. El móvil ya no es solo donde uso o pruebo la app. A veces es también el lugar desde el que le explico, con mi propia voz, cuál debería ser el siguiente cambio.
+El móvil ya no es solo donde uso o pruebo una app. A veces es también donde le explico, con mi propia voz, cuál debería ser el siguiente cambio.
