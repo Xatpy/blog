@@ -1,14 +1,11 @@
 ---
-title: 'Cómo construyo apps con IA: mi método real'
-description: 'Desde diciembre de 2025, el rol de programador mutó por completo. Este es mi método real para construir apps con IA sin tocar el IDE.'
+title: "Cómo construyo apps con IA: mi método real"
+description: "Desde diciembre de 2025, el rol de programador mutó por completo. Este es mi método real para construir apps con IA sin tocar el IDE."
 pubDatetime: 2026-03-28T18:30:00Z
-tags: ['IA', 'desarrollo', 'workflow', 'indie']
+tags: ["IA", "desarrollo", "workflow", "indie"]
 ---
 
 Siempre me ha gustado hacer apps y quería hablar un poco sobre mi experiencia construyendo estas últimas aplicaciones.
-
-
-
 
 Lo primero es que considero que, desde diciembre de 2025, mi estudio de software cambió completamente. Y creo que en general el rol de programador, si no está extinto como tal, sí que ha mutado por completo. En mi caso, yo me sigo considerando programador, pero creo que el trabajo ha cambiado muchísimo y que nos tenemos que reinventar. Para mí ha sido una revolución total.
 

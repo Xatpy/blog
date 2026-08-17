@@ -8,7 +8,6 @@ draft: false
 
 Hoy he creado una app completa mientras salía a correr 40 minutos.
 
-
 ## La idea
 
 Tenía apuntada esta idea en el bloc de notas desde hace tiempo:
@@ -41,7 +40,7 @@ Estaba pensando en una nueva idea de app simple, pero que me ayuda particularmen
 
 ## El prompt del plan
 
-Con todo el resumen que me dio ChatGPT, me fui a Claude Code (usando el modelo 4.6) y le dije que me generase un plan para implementar la app. 
+Con todo el resumen que me dio ChatGPT, me fui a Claude Code (usando el modelo 4.6) y le dije que me generase un plan para implementar la app.
 
 ```
 Lo que quiero es que me des un plan híper mega detallado de todos los pasos que códex 5.4 tendría que implementar. Quiero un one shot porque es bastante sencilla la app. Que supere todas las pruebas de verificación de Apple. Y detalla muchísimo la interfaz también para que sea one shot. Dime si tienes alguna pregunta antes
@@ -57,8 +56,7 @@ Así que simplemente creé una carpeta nueva, abrí codex con:
 
 y pegué el prompt que me había dado Claude Code.
 
-Algo a destacar es que en Codex uso el modelo `gpt-5.4 xhigh` y se nota muchísimo la calidad de la implementación. 
-
+Algo a destacar es que en Codex uso el modelo `gpt-5.4 xhigh` y se nota muchísimo la calidad de la implementación.
 
 A continuación dejo el prompt COMPLETO que me generó Claude Code. Es bastante extenso, pero así se lo había pedido para que lo implementase Codex de un one-shot.
 
@@ -2471,40 +2469,40 @@ Este es el problema más importante del MVP.
 calculateStreak empieza desde hoy hacia atrás. Si hoy no tienes abrazo todavía (son las 20h y aún no lo has hecho), devuelve 0 inmediatamente. Eso significa que entras a la app por la tarde-noche — exactamente tu caso de uso — después de 7 días seguidos, y el badge de racha no aparece. Es desmotivador y parece un bug al usuario.
 El fix es tratar la racha de ayer como "viva" si hoy todavía no está completo:
 typescriptfunction calculateStreak(history: Record<string, HugRecord>): number {
-  let streak = 0;
-  const cursor = new Date();
-  const todayKey = toDayKey(cursor);
-  const todayDone = (history[todayKey]?.count ?? 0) > 0;
+let streak = 0;
+const cursor = new Date();
+const todayKey = toDayKey(cursor);
+const todayDone = (history[todayKey]?.count ?? 0) > 0;
 
-  // Si hoy no está hecho, empieza a contar desde ayer
-  if (!todayDone) {
-    cursor.setDate(cursor.getDate() - 1);
-  }
+// Si hoy no está hecho, empieza a contar desde ayer
+if (!todayDone) {
+cursor.setDate(cursor.getDate() - 1);
+}
 
-  while (true) {
-    const key = toDayKey(cursor);
-    if ((history[key]?.count ?? 0) > 0) {
-      streak += 1;
-      cursor.setDate(cursor.getDate() - 1);
-    } else {
-      break;
-    }
-  }
+while (true) {
+const key = toDayKey(cursor);
+if ((history[key]?.count ?? 0) > 0) {
+streak += 1;
+cursor.setDate(cursor.getDate() - 1);
+} else {
+break;
+}
+}
 
-  return streak;
+return streak;
 }
 
 Bug importante: import incorrecto en i18n
 En src/i18n/index.ts:
-typescriptimport * as i18next from 'i18next'; // ❌ namespace import
+typescriptimport _ as i18next from 'i18next'; // ❌ namespace import
 Debería ser:
 typescriptimport i18next from 'i18next'; // ✅ default import
-Con import *, i18next es el namespace del módulo, no la instancia. .use() y .init() están en i18next.default, no directamente. En TypeScript estricto esto puede silenciarse por los tipos de i18next, pero es técnicamente incorrecto y podría fallar según el entorno de bundling. Con Expo Metro en web especialmente.
+Con import _, i18next es el namespace del módulo, no la instancia. .use() y .init() están en i18next.default, no directamente. En TypeScript estricto esto puede silenciarse por los tipos de i18next, pero es técnicamente incorrecto y podría fallar según el entorno de bundling. Con Expo Metro en web especialmente.
 
 Problema menor: flash de null en Home
 En app/index.tsx:
 typescriptif (!hasHydrated || !hasCompletedOnboarding) {
-  return null;
+return null;
 }
 El redirect al onboarding ocurre en useEffect, que se ejecuta después del primer render. Hay un frame en el que se renderiza null antes del redirect. En iOS esto apenas se nota, pero en web puede ser visible. La solución limpia es mostrar un estado de carga mínimo o invertir la lógica para que el layout gestione la redirección en vez de cada pantalla.
 
@@ -2514,17 +2512,16 @@ El tipo SchedulableTriggerInputTypes.DAILY en Android. En expo-notifications ~0.
 Resumen de prioridades
 El streak bug es el único que afecta directamente la experiencia del usuario que describes — entrar por la tarde después de un día estresante y ver que tu racha ha desaparecido. Eso hay que corregir antes de cualquier build. El import de i18n es un fix de una línea. Lo demás son cosas a monitorizar.
 Para estar listo para build real, lo que falta según sus propios docs es: credenciales EAS, screenshots de producción, URL de política de privacidad, y pruebas en dispositivo físico para haptics y notificaciones.
+
 </details>
 
-Así que cogí todo ese texto, y se lo volví a pasar a Códex. Y me fui a duchar. 
+Así que cogí todo ese texto, y se lo volví a pasar a Códex. Y me fui a duchar.
 
-Tras volver a los 10 minutos, ya estaba el fix hecho. Y, ahora sí, probé la app. 
+Tras volver a los 10 minutos, ya estaba el fix hecho. Y, ahora sí, probé la app.
 
-Y funcionaba. 
+Y funcionaba.
 
-Perfectamente. 
-
-
+Perfectamente.
 
 ## El codigo generado por Codex
 
@@ -2532,17 +2529,13 @@ Aquí se puede ver todo el repositorio con el código generado por Codex
 
 https://github.com/Xatpy/EightSecondsHug
 
-Sinceramente, no he revisado todo el código en profundidad, pero lo que veo tiene sentido. Esta es una app extremedamente sencilla. No puede tener brechas de seguridad de datos, porque sencillamente no hay datos que robar. Y el código es lo suficientemente pequeño como para que pueda entenderlo. 
+Sinceramente, no he revisado todo el código en profundidad, pero lo que veo tiene sentido. Esta es una app extremedamente sencilla. No puede tener brechas de seguridad de datos, porque sencillamente no hay datos que robar. Y el código es lo suficientemente pequeño como para que pueda entenderlo.
 
-Pero lo que sí me ha permitido es aprender un par de cosas que no sabía, en concreto sobre notificaciones y vibración con Expo. 
-
+Pero lo que sí me ha permitido es aprender un par de cosas que no sabía, en concreto sobre notificaciones y vibración con Expo.
 
 ## El resultado
 
-
 ![8secondshugGif](/images/8sechugdemo.gif)
-
-
 
 ## Métricas
 

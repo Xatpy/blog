@@ -1,10 +1,13 @@
 ---
 title: "Programar una app desde el móvil, hablando con Codex"
 description: "Un pequeño script para compilar, instalar y abrir una app iOS en mi iPhone sin tener que volver al ordenador."
-pubDatetime: 2026-08-17T16:00:00Z
+pubDatetime: 2026-08-17T14:00:00Z
 tags: ["ai", "scripts", "writing"]
 draft: false
+ogImage: "https://blog.jaimechapinal.com/images/programar-con-codex-por-voz.png"
 ---
+
+![Ilustración de una persona enviando una nota de voz a Codex desde el iPhone mientras el Mac trabaja al fondo.](/images/programar-con-codex-por-voz.png)
 
 Últimamente estoy desarrollando apps iOS de una forma que todavía me parece un poco mágica.
 
