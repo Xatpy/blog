@@ -101,6 +101,33 @@ const nextPost =
       <Content />
     </article>
 
+    <script>
+      const loadXEmbeds = () => {
+        if (!document.querySelector(".twitter-tweet")) return;
+
+        const twttr = (
+          window as typeof window & {
+            twttr?: { widgets?: { load: () => void } };
+          }
+        ).twttr;
+        if (twttr?.widgets) {
+          twttr.widgets.load();
+          return;
+        }
+
+        if (document.getElementById("x-widgets")) return;
+
+        const script = document.createElement("script");
+        script.id = "x-widgets";
+        script.async = true;
+        script.src = "https://platform.twitter.com/widgets.js";
+        document.head.append(script);
+      };
+
+      document.addEventListener("astro:page-load", loadXEmbeds);
+      loadXEmbeds();
+    </script>
+
     <hr class="my-8 border-dashed" />
     <BackToTopButton />
 

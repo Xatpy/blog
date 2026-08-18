@@ -12,6 +12,10 @@ ogImage: "https://blog.jaimechapinal.com/images/programar-con-codex-por-voz.png"
 
 He grabado un vídeo de dos minutos desde el coche que resume bastante bien cómo estoy programando algunas apps estos días.
 
+<blockquote class="twitter-tweet">
+  <a href="https://x.com/chapi13/status/2089380673756746084?s=20">Ver el vídeo en X</a>
+</blockquote>
+
 Con el coche parado, estoy conectado al Mac por Wi‑Fi. El ordenador está en la habitación de al lado. Hablo con Codex desde el móvil y le digo qué quiero cambiar en una app de CarPlay.
 
 Codex hace el cambio, compila la app, la instala y la abre de nuevo. Yo puedo probarla directamente en la pantalla del coche.

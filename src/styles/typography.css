@@ -54,6 +54,10 @@
       @apply mx-auto border border-border;
     }
 
+    .twitter-tweet {
+      @apply mx-auto my-8;
+    }
+
     figcaption {
       color: var(--secondary);
     }
