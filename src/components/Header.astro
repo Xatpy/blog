@@ -2,8 +2,17 @@
 import IconMoon from "@/assets/icons/IconMoon.svg";
 import IconSunHigh from "@/assets/icons/IconSunHigh.svg";
 import { SITE } from "@/config";
+import type { Locale } from "@/utils/i18n";
+import { copy } from "@/utils/i18n";
+import LanguageSwitcher from "@/components/LanguageSwitcher.astro";
 
 const { pathname } = Astro.url;
+const { locale = "es", languageHref } = Astro.props as {
+  locale?: Locale;
+  languageHref?: string;
+};
+const text = copy[locale];
+const root = locale === "es" ? "/es/" : "/";
 
 const currentPath =
   pathname.endsWith("/") && pathname !== "/" ? pathname.slice(0, -1) : pathname;
@@ -21,7 +30,7 @@ const currentPath =
   <div
     class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between"
   >
-    <a href="/" class="text-xl font-semibold tracking-tight sm:text-2xl">
+    <a href={root} class="text-xl font-semibold tracking-tight sm:text-2xl">
       {SITE.title}
     </a>
 
@@ -30,7 +39,7 @@ const currentPath =
         class="flex flex-wrap items-center gap-x-5 gap-y-3 text-sm font-medium"
       >
         <li>
-          <a href="/" class:list={{ "active-nav": currentPath === "/" }}>Blog</a
+          <a href={root} class:list={{ "active-nav": currentPath === root.slice(0, -1) }}>{text.blog}</a
           >
         </li>
         <li>
@@ -43,8 +52,9 @@ const currentPath =
           </a>
         </li>
         <li>
-          <a href="/rss.xml">RSS</a>
+          <a href={locale === "es" ? "/es/rss.xml" : "/rss.xml"}>RSS</a>
         </li>
+        <li><LanguageSwitcher {locale} targetHref={languageHref} /></li>
         {
           SITE.lightAndDarkMode && (
             <li>
@@ -65,3 +75,11 @@ const currentPath =
     </nav>
   </div>
 </header>
+
+<script>
+  document.querySelectorAll<HTMLAnchorElement>("[data-locale-choice]").forEach(link => {
+    link.addEventListener("click", () =>
+      localStorage.setItem("preferredLocale", link.dataset.localeChoice ?? "en")
+    );
+  });
+</script>

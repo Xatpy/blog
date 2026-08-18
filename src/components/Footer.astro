@@ -1,14 +1,17 @@
 ---
 import type { HTMLAttributes } from "astro/types";
 import { SITE } from "@/config";
+import type { Locale } from "@/utils/i18n";
+import { copy } from "@/utils/i18n";
 
 const currentYear = new Date().getFullYear();
 
 type Props = {
   noMarginTop?: boolean;
+  locale?: Locale;
 } & HTMLAttributes<"footer">;
 
-const { noMarginTop = false, class: className, ...attrs } = Astro.props;
+const { noMarginTop = false, locale = "es", class: className, ...attrs } = Astro.props;
 ---
 
 <footer
@@ -21,7 +24,7 @@ const { noMarginTop = false, class: className, ...attrs } = Astro.props;
     <div class="whitespace-nowrap">
       <span>{SITE.title}</span>
       <span aria-hidden="true"> · </span>
-      <span>Personal writing</span>
+      <span>{copy[locale].personalWriting}</span>
     </div>
     <div class="whitespace-nowrap">© {currentYear}</div>
   </div>

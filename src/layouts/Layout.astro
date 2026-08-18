@@ -3,6 +3,7 @@ import { Font } from "astro:assets";
 import { ClientRouter } from "astro:transitions";
 import { PUBLIC_GOOGLE_SITE_VERIFICATION } from "astro:env/client";
 import { SITE } from "@/config";
+import type { Locale } from "@/utils/i18n";
 import "@/styles/global.css";
 
 type Props = {
@@ -15,6 +16,8 @@ type Props = {
   pubDatetime?: Date;
   modDatetime?: Date | null;
   scrollSmooth?: boolean;
+  locale?: Locale;
+  alternateURL?: string;
 };
 
 const {
@@ -27,6 +30,8 @@ const {
   pubDatetime,
   modDatetime,
   scrollSmooth = false,
+  locale = "es",
+  alternateURL,
 } = Astro.props;
 
 const socialImageURL = new URL(ogImage, Astro.url);
@@ -59,14 +64,15 @@ const structuredData = pubDatetime
 <!doctype html>
 <html
   dir={SITE.dir}
-  lang=`${SITE.lang ?? "en"}`
-  class={`${scrollSmooth && "scroll-smooth"}`}
+  lang={locale}
+  class:list={{ "scroll-smooth": scrollSmooth }}
 >
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="canonical" href={canonicalURL} />
+    {alternateURL && <link rel="alternate" hreflang={locale === "es" ? "en" : "es"} href={alternateURL} />}
     <meta name="generator" content={Astro.generator} />
 
     <!-- Load Font -->
@@ -130,7 +136,7 @@ const structuredData = pubDatetime
       rel="alternate"
       type="application/rss+xml"
       title={SITE.title}
-      href={new URL("rss.xml", Astro.site)}
+      href={new URL(locale === "es" ? "es/rss.xml" : "rss.xml", Astro.site)}
     />
 
     <meta name="theme-color" content="" />

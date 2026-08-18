@@ -1,0 +1,62 @@
+---
+import type { Locale } from "@/utils/i18n";
+
+type Props = {
+  locale: Locale;
+  targetHref?: string;
+};
+
+const { locale, targetHref } = Astro.props;
+const defaultTargetHref = locale === "en" ? "/es/" : "/";
+const href = targetHref ?? defaultTargetHref;
+---
+
+<div
+  class="inline-flex items-center rounded-md border border-border bg-muted/35 p-0.5 text-sm font-medium"
+  aria-label="Language selector"
+>
+  {
+    locale === "es" ? (
+      <span
+        class="rounded bg-background px-1.5 py-1 text-foreground shadow-sm dark:bg-muted dark:text-foreground dark:shadow-none"
+        lang="es"
+        aria-current="true"
+        title="Español"
+      >
+        <span aria-hidden="true">🇪🇸</span><span class="sr-only">Español</span>
+      </span>
+    ) : (
+      <a
+        data-locale-choice="es"
+        href={href}
+        class="rounded px-1.5 py-1 opacity-65 transition-all hover:opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+        lang="es"
+        title="Cambiar a español"
+      >
+        <span aria-hidden="true">🇪🇸</span><span class="sr-only">Cambiar a español</span>
+      </a>
+    )
+  }
+  {
+    locale === "en" ? (
+      <span
+        class="rounded bg-background px-1.5 py-1 text-foreground shadow-sm dark:bg-muted dark:text-foreground dark:shadow-none"
+        lang="en"
+        aria-current="true"
+        title="English"
+      >
+        <span aria-hidden="true">🇬🇧</span><span class="sr-only">English</span>
+      </span>
+    ) : (
+      <a
+        data-locale-choice="en"
+        href={href}
+        class="rounded px-1.5 py-1 opacity-65 transition-all hover:opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+        lang="en"
+        title="Switch to English"
+      >
+        <span aria-hidden="true">🇬🇧</span><span class="sr-only">Switch to English</span>
+      </a>
+    )
+  }
+</div>

@@ -6,6 +6,8 @@ modDatetime: 2026-08-17T14:00:00Z
 tags: ["ai", "scripts", "writing"]
 draft: false
 ogImage: "https://blog.jaimechapinal.com/images/programar-con-codex-por-voz.png"
+locale: "es"
+translationKey: "coding-an-app-from-my-car-with-codex"
 ---
 
 ![Ilustración de una persona enviando una nota de voz a Codex desde el iPhone mientras el Mac trabaja al fondo.](/images/programar-con-codex-por-voz.png)

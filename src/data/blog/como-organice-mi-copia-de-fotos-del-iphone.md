@@ -4,6 +4,8 @@ description: "Un pequeño script para convertir un volcado caótico de Image Cap
 pubDatetime: 2026-07-13T10:00:00Z
 tags: ["scripts", "photography", "backup"]
 draft: false
+locale: "es"
+translationKey: "iphone-photo-backup"
 ---
 
 Tenía un problema bastante normal, solo que a escala poco normal: muchos, muchos gigabytes de fotos y vídeos en el iPhone.

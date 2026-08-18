@@ -6,18 +6,20 @@ import Footer from "@/components/Footer.astro";
 import Card from "@/components/Card.astro";
 import getSortedPosts from "@/utils/getSortedPosts";
 import { SITE } from "@/config";
+import { copy, getLocalePosts } from "@/utils/i18n";
 
-const posts = await getCollection("blog");
+const posts = getLocalePosts(await getCollection("blog"), "en");
 const sortedPosts = getSortedPosts(posts);
+const text = copy.en;
 ---
 
-<Layout title={`${SITE.title} | Blog`} description={SITE.desc}>
-  <Header />
+<Layout title={`${SITE.title} | Blog`} description={text.intro} locale="en" alternateURL={new URL("/es/", Astro.url).href}>
+  <Header locale="en" />
   <main id="main-content" class="app-layout py-10">
     <section class="border-b border-border pb-6">
-      <h1 class="text-4xl font-semibold tracking-tight sm:text-5xl">Blog</h1>
+      <h1 class="text-4xl font-semibold tracking-tight sm:text-5xl">{text.blog}</h1>
       <p class="mt-4 max-w-2xl text-lg text-foreground/78">
-        Personal writing on software, work, and things worth keeping.
+        {text.intro}
       </p>
     </section>
 
@@ -27,5 +29,15 @@ const sortedPosts = getSortedPosts(posts);
       </ul>
     </section>
   </main>
-  <Footer />
+  <Footer locale="en" />
 </Layout>
+
+<script is:inline>
+  const preferredLocale = localStorage.getItem("preferredLocale");
+  const browserPrefersSpanish = navigator.languages.some(language =>
+    language.toLowerCase().startsWith("es")
+  );
+  if (preferredLocale === "es" || (!preferredLocale && browserPrefersSpanish)) {
+    window.location.replace("/es/");
+  }
+</script>

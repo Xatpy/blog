@@ -4,6 +4,8 @@ description: "Una herramienta local para transcribir vídeos, proponer frases co
 pubDatetime: 2026-07-17T10:00:00Z
 tags: ["ai", "audio", "python", "open-source"]
 draft: true
+locale: "es"
+translationKey: "ai-soundbite-extractor"
 ---
 
 Cuando quieres sacar sonidos de un vídeo largo para un soundboard, el trabajo no suele estar en exportar un MP3. Está antes: escuchar todo el vídeo, detectar las frases que merecen la pena, encontrar el principio y el final de cada una, y repetirlo muchas veces.

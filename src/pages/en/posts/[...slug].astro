@@ -1,0 +1,8 @@
+---
+import { getCollection } from "astro:content";
+export async function getStaticPaths() {
+  const posts = (await getCollection("blog", ({ data }) => !data.draft)).filter(post => post.data.locale === "en");
+  return posts.map(post => ({ params: { slug: post.id.split("/").at(-1) } }));
+}
+return Astro.redirect(`/posts/${Astro.params.slug}`);
+---

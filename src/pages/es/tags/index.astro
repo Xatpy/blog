@@ -6,21 +6,16 @@ import Tag from "@/components/Tag.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import getUniqueTags from "@/utils/getUniqueTags";
-import { SITE } from "@/config";
 import { copy, getLocalePosts } from "@/utils/i18n";
-
-const posts = getLocalePosts(await getCollection("blog"), "en");
-const text = copy.en;
-
-let tags = getUniqueTags(posts);
+import { SITE } from "@/config";
+const posts = getLocalePosts(await getCollection("blog"), "es");
+const text = copy.es;
+const tags = getUniqueTags(posts);
 ---
-
-<Layout title={`${text.tags} | ${SITE.title}`} locale="en">
-  <Header locale="en" />
+<Layout title={`${text.tags} | ${SITE.title}`} locale="es">
+  <Header locale="es" />
   <Main pageTitle={text.tags} pageDesc={text.tagsDescription}>
-    <ul class="flex flex-wrap gap-6">
-      {tags.map(({ tag, tagName }) => <Tag {tag} {tagName} />)}
-    </ul>
+    <ul class="flex flex-wrap gap-6">{tags.map(({ tag, tagName }) => <Tag {tag} {tagName} locale="es" />)}</ul>
   </Main>
-  <Footer locale="en" />
+  <Footer locale="es" />
 </Layout>

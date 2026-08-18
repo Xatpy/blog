@@ -10,9 +10,10 @@ import Pagination from "@/components/Pagination.astro";
 import getUniqueTags from "@/utils/getUniqueTags";
 import getPostsByTag from "@/utils/getPostsByTag";
 import { SITE } from "@/config";
+import { copy, getLocalePosts } from "@/utils/i18n";
 
 export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
-  const posts = await getCollection("blog");
+  const posts = getLocalePosts(await getCollection("blog"), "en");
   const tags = getUniqueTags(posts);
 
   return tags.flatMap(({ tag, tagName }) => {
@@ -27,13 +28,14 @@ export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
 }
 
 const { page, tagName } = Astro.props;
+const text = copy.en;
 ---
 
-<Layout title={`Tag: ${tagName} | ${SITE.title}`}>
-  <Header />
+<Layout title={`${text.tags}: ${tagName} | ${SITE.title}`} locale="en">
+  <Header locale="en" />
   <Main
-    pageTitle={`Tag: ${tagName}`}
-    pageDesc={`All the articles with the tag "${tagName}".`}
+    pageTitle={`${text.tags}: ${tagName}`}
+    pageDesc={text.tagDescription(tagName)}
   >
     <ul>
       {page.data.map(data => <Card {...data} />)}
@@ -42,5 +44,5 @@ const { page, tagName } = Astro.props;
 
   <Pagination {page} />
 
-  <Footer noMarginTop={page.lastPage > 1} />
+  <Footer locale="en" noMarginTop={page.lastPage > 1} />
 </Layout>

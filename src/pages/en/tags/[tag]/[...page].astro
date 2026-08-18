@@ -1,0 +1,10 @@
+---
+import { getCollection } from "astro:content";
+import getUniqueTags from "@/utils/getUniqueTags";
+import { getLocalePosts } from "@/utils/i18n";
+export async function getStaticPaths() {
+  const posts = getLocalePosts(await getCollection("blog"), "en");
+  return getUniqueTags(posts).map(({ tag }) => ({ params: { tag } }));
+}
+return Astro.redirect(`/tags/${Astro.params.tag}/`);
+---

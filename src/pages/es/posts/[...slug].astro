@@ -1,0 +1,13 @@
+---
+import { type CollectionEntry, getCollection } from "astro:content";
+import PostDetails from "@/layouts/PostDetails.astro";
+import getSortedPosts from "@/utils/getSortedPosts";
+type Props = { post: CollectionEntry<"blog"> };
+export async function getStaticPaths() {
+  const posts = (await getCollection("blog", ({ data }) => !data.draft)).filter(post => post.data.locale === "es");
+  return posts.map(post => ({ params: { slug: post.id.split("/").at(-1) }, props: { post } }));
+}
+const { post } = Astro.props;
+const posts = (await getCollection("blog")).filter(post => post.data.locale === "es");
+---
+<PostDetails post={post} posts={getSortedPosts(posts)} />

@@ -1,17 +1,16 @@
 import rss from "@astrojs/rss";
 import { getCollection } from "astro:content";
 import getSortedPosts from "@/utils/getSortedPosts";
-import { SITE } from "@/config";
 import { getLocalePosts, getPostUrl } from "@/utils/i18n";
+import { SITE } from "@/config";
 
 export async function GET() {
-  const posts = getLocalePosts(await getCollection("blog"), "en");
-  const sortedPosts = getSortedPosts(posts);
+  const posts = getLocalePosts(await getCollection("blog"), "es");
   return rss({
-    title: SITE.title,
-    description: "Personal writing on software, work, and things worth keeping.",
+    title: `${SITE.title} — Blog`,
+    description: "Escribo sobre software, trabajo y cosas que merece la pena conservar.",
     site: SITE.website,
-    items: sortedPosts.map(post => ({
+    items: getSortedPosts(posts).map(post => ({
       link: getPostUrl(post),
       title: post.data.title,
       description: post.data.description,

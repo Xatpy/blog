@@ -4,6 +4,8 @@ description: "Esta es la historia de cómo desarrollé una app en un par de hora
 pubDatetime: 2026-04-03T16:00:00Z
 tags: ["writing", "notes"]
 draft: false
+locale: "es"
+translationKey: "8-seconds-hug-development"
 ---
 
 Hoy he creado una app completa mientras salía a correr 40 minutos.

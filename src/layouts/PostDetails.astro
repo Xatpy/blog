@@ -1,12 +1,12 @@
 ---
-import { render, type CollectionEntry } from "astro:content";
+import { getCollection, render, type CollectionEntry } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import Datetime from "@/components/Datetime.astro";
 import BackButton from "@/components/BackButton.astro";
 import BackToTopButton from "@/components/BackToTopButton.astro";
-import { getPath } from "@/utils/getPath";
+import { copy, getPostUrl } from "@/utils/i18n";
 import { slugifyStr } from "@/utils/slugify";
 import IconChevronLeft from "@/assets/icons/IconChevronLeft.svg";
 import IconChevronRight from "@/assets/icons/IconChevronRight.svg";
@@ -18,6 +18,8 @@ type Props = {
 };
 
 const { post, posts } = Astro.props;
+const locale = post.data.locale;
+const text = copy[locale];
 
 const {
   title,
@@ -43,7 +45,7 @@ if (typeof initOgImage === "string") {
 
 // Use dynamic OG image if enabled and no remote|local ogImage
 if (!ogImageUrl && SITE.dynamicOgImage) {
-  ogImageUrl = `${getPath(post.id, post.filePath)}/index.png`;
+  ogImageUrl = `${getPostUrl(post)}/index.png`;
 }
 
 // Resolve OG image URL (or fallback to SITE.ogImage / default `og.png`)
@@ -60,7 +62,17 @@ const layoutProps = {
   canonicalURL,
   ogImage,
   scrollSmooth: true,
+  locale,
 };
+
+const translatedPost = (await getCollection("blog")).find(
+  candidate =>
+    candidate.data.translationKey === post.data.translationKey &&
+    candidate.data.locale !== locale
+);
+const alternateURL = translatedPost
+  ? new URL(getPostUrl(translatedPost), Astro.url).href
+  : undefined;
 
 /* ========== Prev/Next Posts ========== */
 
@@ -77,9 +89,9 @@ const nextPost =
   currentPostIndex !== allPosts.length ? allPosts[currentPostIndex + 1] : null;
 ---
 
-<Layout {...layoutProps}>
-  <Header />
-  <BackButton />
+<Layout {...layoutProps} alternateURL={alternateURL}>
+  <Header {locale} languageHref={translatedPost ? getPostUrl(translatedPost) : undefined} />
+  <BackButton {locale} />
   <main
     id="main-content"
     class:list={["app-layout pb-12", { "mt-8": !SITE.showBackButton }]}
@@ -94,6 +106,15 @@ const nextPost =
     <div class="my-2 flex items-center gap-2">
       <Datetime {pubDatetime} {modDatetime} {timezone} size="lg" />
     </div>
+    {
+      translatedPost && (
+        <p class="mt-4 text-sm font-medium">
+          <a class="underline decoration-dashed underline-offset-4 hover:text-accent" href={getPostUrl(translatedPost)}>
+            {text.readIn}
+          </a>
+        </p>
+      )
+    }
     <article
       id="article"
       class="app-prose mt-8 w-full max-w-app prose-pre:bg-(--shiki-light-bg) dark:prose-pre:bg-(--shiki-dark-bg)"
@@ -138,12 +159,12 @@ const nextPost =
       {
         prevPost && (
           <a
-            href={getPath(prevPost.id, prevPost.filePath)}
+            href={getPostUrl(posts[currentPostIndex - 1])}
             class="flex w-full gap-1 hover:opacity-75"
           >
             <IconChevronLeft class="inline-block flex-none rtl:rotate-180" />
             <div>
-              <span>Previous Post</span>
+              <span>{text.previous}</span>
               <div class="text-sm text-accent/85">{prevPost.title}</div>
             </div>
           </a>
@@ -152,11 +173,11 @@ const nextPost =
       {
         nextPost && (
           <a
-            href={getPath(nextPost.id, nextPost.filePath)}
+            href={getPostUrl(posts[currentPostIndex + 1])}
             class="flex w-full justify-end gap-1 text-end hover:opacity-75 sm:col-start-2"
           >
             <div>
-              <span>Next Post</span>
+              <span>{text.next}</span>
               <div class="text-sm text-accent/85">{nextPost.title}</div>
             </div>
             <IconChevronRight class="inline-block flex-none rtl:rotate-180" />
@@ -165,7 +186,7 @@ const nextPost =
       }
     </div>
   </main>
-  <Footer />
+  <Footer {locale} />
 </Layout>
 
 <script is:inline data-astro-rerun>

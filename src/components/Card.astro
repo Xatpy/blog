@@ -1,21 +1,21 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import { slugifyStr } from "@/utils/slugify";
-import { getPath } from "@/utils/getPath";
+import { getPostUrl } from "@/utils/i18n";
 import Datetime from "./Datetime.astro";
 
 type Props = {
   variant?: "h2" | "h3";
 } & CollectionEntry<"blog">;
 
-const { variant: Heading = "h2", id, data, filePath } = Astro.props;
+const { variant: Heading = "h2", data } = Astro.props;
 
 const { title, description, ...props } = data;
 ---
 
 <li class="border-b border-border py-6 last:border-b-0">
   <a
-    href={getPath(id, filePath)}
+    href={getPostUrl(Astro.props)}
     class:list={[
       "inline-block text-xl font-semibold tracking-tight text-foreground",
       "decoration-dashed underline-offset-4 hover:text-accent hover:underline",

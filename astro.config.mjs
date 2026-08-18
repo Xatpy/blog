@@ -11,11 +11,24 @@ import {
 import { transformerFileName } from "./src/utils/transformers/fileName.js";
 import { SITE } from "./src/config.ts";
 
+const legacySpanishPostPaths = new Set([
+  "/posts/8-seconds-hug-development/",
+  "/posts/como-organice-mi-copia-de-fotos-del-iphone/",
+  "/posts/programar-una-app-desde-el-movil-hablando-con-codex/",
+]);
+
 export default defineConfig({
   site: "https://blog.jaimechapinal.com",
   integrations: [
     sitemap({
-      filter: page => SITE.showArchives || !page.endsWith("/archives"),
+      filter: page => {
+        const pathname = new URL(page).pathname;
+        return (
+          (SITE.showArchives || !pathname.endsWith("/archives")) &&
+          !pathname.startsWith("/en/") &&
+          !legacySpanishPostPaths.has(pathname)
+        );
+      },
     }),
   ],
   markdown: {
