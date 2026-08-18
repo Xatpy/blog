@@ -5,6 +5,7 @@ User-agent: *
 Allow: /
 
 Sitemap: ${sitemapURL.href}
+# LLM-friendly site index: ${new URL("llms.txt", sitemapURL).href}
 `;
 
 export const GET: APIRoute = ({ site }) => {
