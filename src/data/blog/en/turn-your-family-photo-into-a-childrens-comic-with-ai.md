@@ -1,7 +1,7 @@
 ---
 title: "Turn a family photo into a personalized children’s comic with AI"
 description: "A reusable prompt for making your child and family the heroes of an illustrated story."
-pubDatetime: 2026-08-30T10:00:00Z
+pubDatetime: 2026-08-30T08:00:00Z
 tags: ["ai", "family", "creativity"]
 draft: false
 locale: "en"

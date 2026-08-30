@@ -1,7 +1,7 @@
 ---
 title: "Convierte una foto familiar en un cómic infantil personalizado con IA"
 description: "Un prompt reutilizable para crear un cuento-cómic donde tu hijo y su familia son los protagonistas."
-pubDatetime: 2026-08-30T10:00:00Z
+pubDatetime: 2026-08-30T08:00:00Z
 tags: ["ai", "family", "creativity"]
 draft: false
 locale: "es"
