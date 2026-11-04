@@ -12,8 +12,7 @@ translationKey: "ayer-react-native-to-native-swift"
 **En resumen:** he pasado mi app [Ayer](https://chapiware.com/ayer) de React Native a Swift nativo y he
 puesto las dos versiones a pasar el mismo test automático con una fototeca de 21.000 fotos. La de Swift
 enseña la primera foto en **0,58 s en vez de 2,17 s**, carga los días con **7 veces menos CPU** y usa
-**la mitad de memoria** al arrancar. Al desplazarse, empate. La versión nueva es
-[gratis en la App Store](https://apps.apple.com/app/id6755725357).
+**la mitad de memoria** al arrancar. Al desplazarse, empate.
 
 <video src="/images/ayer-native-swift/ayer-rn-vs-native.mp4" poster="/images/ayer-native-swift/poster-next-day.jpg" controls muted playsinline preload="metadata" width="540"></video>
 
@@ -21,28 +20,29 @@ enseña la primera foto en **0,58 s en vez de 2,17 s**, carga los días con **7 
 
 ## La app
 
-Ayer te enseña las fotos que hiciste tal día como hoy en años anteriores. Sin cuenta, sin servidor y
-sin que nada salga de tu móvil. También tiene un widget para la pantalla de inicio, collages para poner
-dos años lado a lado y tarjetas de recuerdo para compartir.
+Ayer te enseña las fotos que hiciste tal día como hoy en años anteriores. También tiene un widget para
+la pantalla de inicio, collages para poner dos años lado a lado y tarjetas de recuerdo para compartir.
+Siempre ha sido gratis y privada: sin cuenta, sin anuncios y sin que tus fotos salgan del móvil. Eso no
+ha cambiado; ahora simplemente va mucho más rápida. La tienes
+[en la App Store](https://apps.apple.com/app/id6755725357).
 
-Hasta esta semana era una app de Expo. En el fondo es una capa fina sobre el framework Photos de
-Apple, y en React Native cada una de esas llamadas pasa por JavaScript y por un puente. Quería saber
-cuánto costaba eso.
+Hasta ahora era una app de Expo. En el fondo es una capa fina sobre el framework Photos de Apple, y en
+React Native cada una de esas llamadas pasa por JavaScript y por un puente. Quería saber cuánto costaba
+eso.
 
-Para ser justo con React Native: es la app **tal y como la publiqué**. Expo 53, RN 0.79, Hermes,
-FlashList, expo-image y la arquitectura antigua (`newArchEnabled: false`). No es la mejor app de React
-Native que se podría escribir, es la que yo tenía.
+Para ser justo con React Native: es la app **tal y como la publiqué**. Expo 53, React Native 0.79,
+Hermes, FlashList, expo-image y la arquitectura antigua (`newArchEnabled: false`). No es la mejor app de
+React Native que se podría escribir, es la que yo tenía.
 
 ## Cómo se hizo el port
 
-No escribí el Swift a mano. Le pedí a [Claude Code](https://claude.com/claude-code) que analizara la
-app de React Native y escribiera un plan, y después le di el port entero como una sola tarea larga, con
-criterios de "terminado" que podía comprobar él mismo: que compile, que pasen los tests, que cada
-traducción exista en los 7 idiomas y que cada pantalla tenga su captura junto a la de React Native.
+No escribí el Swift a mano. Le pedí a Claude Code que analizara la app de React Native y escribiera un
+plan, y después le di el port entero como una sola tarea larga, con criterios de "terminado" que podía
+comprobar él mismo: que compile, que pasen los tests, que cada traducción exista en los 7 idiomas y que
+cada pantalla tenga su captura junto a la de React Native.
 
-El plan se escribió el 22 de octubre. La tarde siguiente ya estaba midiendo un port terminado. Después
-vino una semana de la parte que no es automática: usarla en mi móvil, unas cuantas rondas de revisión
-de código y arreglar lo que iba saliendo. Lo que hizo mal:
+El port en sí fue la parte rápida. La lenta fue todo lo de después: usar la app en mi móvil, unas
+cuantas rondas de revisión de código y arreglar lo que iba saliendo. Lo que hizo mal:
 
 - Un bundle ID que era solo para el benchmark acabó en el proyecto de la App Store. Dos veces. Las dos
   lo vi yo al abrir Xcode.
@@ -152,6 +152,6 @@ su cuenta: el código era correcto, simplemente no escalaba.
 - **Un agente puede portar una app, pero "terminado" tiene que ser algo que puedas comprobar.**
 - **Si no te puedes fiar del reloj, mete uno en la imagen.**
 
-Si quieres ver cómo va con tus propias fotos, Ayer es
-[gratis en la App Store](https://apps.apple.com/app/id6755725357), y tienes más información en
-[chapiware.com/ayer](https://chapiware.com/ayer).
+Si quieres ver cómo es "este día, en todos tus años" con tus propias fotos, Ayer está en la
+[App Store](https://apps.apple.com/app/id6755725357). Igual de gratis, igual de privada y ahora mucho
+más rápida. Más información en [chapiware.com/ayer](https://chapiware.com/ayer).
